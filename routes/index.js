@@ -10,13 +10,45 @@ function extractDate(date) {
   return date;
 }
 
-function index(nasaApiKey) {
-  router.get('/', async function(req, res, next) {
+function saveToCache(redisClient, key, value) {
+  redisClient.setex(key, 60 * 60, JSON.stringify(value));
+}
+
+function handleRequest(nasaApiKey, redisClient) {
+  return async (req, res, next) => {
     const date = extractDate(req.query.date);
     const desc = await client.getApodDesc(nasaApiKey, date);
+    const body = { desc };
 
-    await res.json({ desc });
-  });
+    await res.json(body);
+    saveToCache(redisClient, date, body);
+  }
+}
+
+function checkCache(redisClient) {
+  return (req, res, next) => {
+    const date = extractDate(req.query.date);
+
+    if (date === 'today') {
+      next();
+      return;
+    }
+
+    redisClient.get(date, (err, data) => {
+      if (data !== null) {
+        res.send(data);
+      } else {
+        next();
+      }
+    });
+  }
+}
+
+function index(nasaApiKey, redisClient) {
+  router.get('/',
+      checkCache(redisClient),
+      handleRequest(nasaApiKey, redisClient)
+  );
 
   return router;
 }
