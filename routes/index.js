@@ -1,8 +1,15 @@
 const express = require('express');
+const client = require('../services/nasa.client');
 const router = express.Router();
 
-router.get('/', function(req, res, next) {
-  res.json({time: new Date()});
-});
+function index(nasaApiKey) {
+  router.get('/', async function(req, res, next) {
+    const desc = await client.getApodDesc(nasaApiKey)
 
-module.exports = router;
+    await res.json({ desc });
+  });
+
+  return router;
+}
+
+module.exports = index;
