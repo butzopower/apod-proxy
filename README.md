@@ -1,6 +1,6 @@
 # APOD Proxy
 
-Node application that proxies requests to NASA's **A**stronomy **P**icture **O**f the **D**ay API and (soon) caches responses using Redis.
+Node application that proxies requests to NASA's **A**stronomy **P**icture **O**f the **D**ay API and caches responses using Redis.
 
 ## Setup
 
