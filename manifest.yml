@@ -1,0 +1,6 @@
+---
+applications:
+  - name: apod-proxy
+    memory: 256M
+    buildpacks:
+      - nodejs_buildpack

@@ -1,4 +1,4 @@
 #!/bin/bash
 set -ex
 
-cf blue-green-deploy apod-proxy
+cf v3-zdt-push apod-proxy
