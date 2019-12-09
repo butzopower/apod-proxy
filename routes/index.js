@@ -36,7 +36,7 @@ function checkCache(redisClient) {
 
     redisClient.get(date, (err, data) => {
       if (data !== null) {
-        res.send(data);
+        res.send(JSON.parse(data));
       } else {
         next();
       }
