@@ -1,0 +1,13 @@
+image: node:latest
+
+services:
+  - redis:latest
+
+cache:
+  paths:
+    - node_modules/
+
+mocha:
+  script:
+    - npm install
+    - npm test
