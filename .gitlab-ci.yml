@@ -10,4 +10,4 @@ cache:
 mocha:
   script:
     - npm install
-    - npm test
+    - REDIS_HOST=redis npm test

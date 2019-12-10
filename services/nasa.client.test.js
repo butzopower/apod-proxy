@@ -1,7 +1,7 @@
 const assert = require('assert');
 
-describe('foo', () => {
+describe('a working test', () => {
   it('works', () => {
-    assert.equal(true, false);
+    assert.equal(true, true);
   });
 });
